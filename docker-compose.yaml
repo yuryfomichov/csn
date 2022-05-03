@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+   node-server:
+    restart: always
+    container_name:  node-server
+    ports:
+      - 8088:8088
+    expose:
+      - '8088'
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_BACKEND: 'http://node-server:8080/api'
