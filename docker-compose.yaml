@@ -13,3 +13,8 @@ services:
       dockerfile: Dockerfile
       args:
         REACT_APP_BACKEND: 'http://node-server:8080/api'
+    volumes:
+      - ./backend:/db
+volumes:
+  db:
+    name: db
