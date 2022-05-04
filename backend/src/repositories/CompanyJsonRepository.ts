@@ -21,7 +21,15 @@ class CompanyJsonRepository implements ICompanyRepository {
     });
   }
   async get_companies(query: GetCompaniesQuery): Promise<CompanyModel[]> {
-    return fs.readJson(DB_LOCATION);
+    const db: CompanyModel[] = await fs.readJson(DB_LOCATION);
+    let result = db;
+    if (query.company_query) {
+      result = result.filter((company) =>
+        company.name.includes(query.company_query!)
+      );
+    }
+    result = result.slice(query.pagination.offset, query.pagination.limit);
+    return result;
   }
 }
 

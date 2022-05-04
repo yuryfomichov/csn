@@ -3,10 +3,16 @@ export type Pagination = {
   limit: number;
 };
 
+export type Ordering = {
+  field: string;
+  direction: "asc" | "desc";
+};
+
 export type GetCompaniesQuery = {
   company_query?: string;
   specialities?: string[];
   pagination: Pagination;
+  ordering: Ordering;
 };
 
 export type CompanyModel = {

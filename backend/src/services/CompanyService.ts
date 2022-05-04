@@ -19,10 +19,8 @@ class CompanyService {
       this.repository.save_db(companies);
     }
   }
-  async get_companies(): Promise<CompanyModel[]> {
-    return await this.repository.get_companies({
-      company_query: "",
-    } as GetCompaniesQuery);
+  async get_companies(query: GetCompaniesQuery): Promise<CompanyModel[]> {
+    return await this.repository.get_companies(query);
   }
 }
 
