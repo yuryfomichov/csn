@@ -1,9 +1,12 @@
 import { json } from "body-parser";
+import cors from "cors";
 import express from "express";
 import path from "path";
 import { companiesRouter } from "./routes/companies";
+
 const app = express();
 
+app.use(cors());
 app.use(json());
 app.use(companiesRouter);
 
