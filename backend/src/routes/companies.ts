@@ -40,7 +40,6 @@ router.post(
   async (req: Request, res: Response) => {
     const service = getCompanyService();
     const { company_query, specialities, pagination, ordering } = req.body;
-
     const query: GetCompaniesQuery = {
       company_query,
       specialities,
