@@ -47,9 +47,11 @@ router.post(
       ordering,
     };
     const companies: CompanyModel[] = await service.get_companies(query);
+    const count: number = await service.get_companies_count(query);
 
     res.status(200).send({
       companies,
+      count,
     });
   }
 );

@@ -2,13 +2,25 @@ import { useEffect, useRef, useState } from "react";
 
 const API = process.env.REACT_APP_BACKEND;
 
+export enum Specialities {
+  Plumbing = "plumbing",
+  Electrical = "electrical",
+  Painting = "painting",
+  Carpentry = "carpentry",
+  Cleaning = "cleaning",
+}
+
 export type CompanyModel = {
+  id: number;
   name: string;
   city: string;
+  logo: string;
+  specialities: Specialities[];
 };
 
-function useCompanies(searchQuery: string) {
+function useCompanies(searchQuery: string, specialitiesFilter: string[]) {
   const [companies, setCompanies] = useState<CompanyModel[]>([]);
+  const [count, setCount] = useState<number>(0);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const timeout = useRef<any>();
@@ -24,10 +36,14 @@ function useCompanies(searchQuery: string) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ company_query: searchQuery }),
+          body: JSON.stringify({
+            company_query: searchQuery,
+            specialities: specialitiesFilter,
+          }),
         });
         const data = await response.json();
         setCompanies(data.companies);
+        setCount(data.count);
       } catch (err: any) {
         setError(err);
       } finally {
@@ -35,8 +51,8 @@ function useCompanies(searchQuery: string) {
       }
     };
     timeout.current = setTimeout(sendRequest, 500);
-  }, [searchQuery]);
+  }, [searchQuery, specialitiesFilter]);
 
-  return { companies, error, loading };
+  return { companies, count, error, loading };
 }
 export { useCompanies };

@@ -30,21 +30,23 @@ function CompaniesTable({ companies, loading, error }: Props) {
     <Table>
       <TableHead>
         <TableRow>
+          <TableCell>Id</TableCell>
+          <TableCell></TableCell>
           <TableCell>Name</TableCell>
           <TableCell>City</TableCell>
-          <TableCell>header 3</TableCell>
-          <TableCell>header 4</TableCell>
-          <TableCell>Header 5</TableCell>
+          <TableCell>Specialities</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
         {companies.map((company) => (
-          <TableRow key={company.name}>
+          <TableRow key={company.id}>
+            <TableCell scope="row">{company.id}</TableCell>
+            <TableCell scope="row">
+              <img src={company.logo} alt=""></img>
+            </TableCell>
             <TableCell scope="row">{company.name}</TableCell>
             <TableCell scope="row">{company.city}</TableCell>
-            <TableCell scope="row">1</TableCell>
-            <TableCell scope="row">2</TableCell>
-            <TableCell scope="row">3</TableCell>
+            <TableCell scope="row">{company.specialities.join(", ")}</TableCell>
           </TableRow>
         ))}
       </TableBody>
